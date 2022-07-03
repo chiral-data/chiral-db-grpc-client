@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "chiral-db-grpc-client"
-version = "0.0.3"
+version = "0.0.4"
 description = "ChiralDB gRPC Client in Python"
 authors = ["Qin Wan <rogerwq@gmail.com>"]
 license = "MIT"

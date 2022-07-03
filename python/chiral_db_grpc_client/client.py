@@ -13,8 +13,11 @@ class Client:
     def __del__(self):
         self.channel.close()
 
-    def query_similarity(self, smiles: str, cutoff: float) -> typing.Dict[str, float]:
+    def get_description(self) -> str:
+        return self.stub.GetDescription(chiral_db_pb2.RequestDescription()).desc
+
+    def query_similarity(self, doc_name: str, smiles: str, cutoff: float) -> typing.Dict[str, float]:
         mol = chiral_db_pb2.Molecule(smiles=smiles)
-        return self.stub.QuerySimilarity(chiral_db_pb2.RequestSimilarity(mol=mol, cutoff=cutoff)).results
+        return self.stub.QuerySimilarity(chiral_db_pb2.RequestSimilarity(mol=mol, cutoff=cutoff, doc_name=doc_name)).results
 
     

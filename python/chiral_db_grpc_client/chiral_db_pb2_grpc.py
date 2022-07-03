@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from . import chiral_db_pb2 as chiral__db__pb2
+import chiral_db_grpc_client.chiral_db_pb2 as chiral__db__pb2
 
 
 class ChiralDbStub(object):
@@ -14,6 +14,11 @@ class ChiralDbStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.GetDescription = channel.unary_unary(
+                '/chiraldb.ChiralDb/GetDescription',
+                request_serializer=chiral__db__pb2.RequestDescription.SerializeToString,
+                response_deserializer=chiral__db__pb2.ReplyDescription.FromString,
+                )
         self.QuerySimilarity = channel.unary_unary(
                 '/chiraldb.ChiralDb/QuerySimilarity',
                 request_serializer=chiral__db__pb2.RequestSimilarity.SerializeToString,
@@ -24,6 +29,12 @@ class ChiralDbStub(object):
 class ChiralDbServicer(object):
     """Missing associated documentation comment in .proto file."""
 
+    def GetDescription(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def QuerySimilarity(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -33,6 +44,11 @@ class ChiralDbServicer(object):
 
 def add_ChiralDbServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'GetDescription': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetDescription,
+                    request_deserializer=chiral__db__pb2.RequestDescription.FromString,
+                    response_serializer=chiral__db__pb2.ReplyDescription.SerializeToString,
+            ),
             'QuerySimilarity': grpc.unary_unary_rpc_method_handler(
                     servicer.QuerySimilarity,
                     request_deserializer=chiral__db__pb2.RequestSimilarity.FromString,
@@ -47,6 +63,23 @@ def add_ChiralDbServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class ChiralDb(object):
     """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def GetDescription(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/chiraldb.ChiralDb/GetDescription',
+            chiral__db__pb2.RequestDescription.SerializeToString,
+            chiral__db__pb2.ReplyDescription.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def QuerySimilarity(request,
