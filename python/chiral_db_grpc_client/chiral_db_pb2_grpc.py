@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import chiral_db_grpc_client.chiral_db_pb2 as chiral__db__pb2
+from . import chiral_db_pb2 as chiral__db__pb2
 
 
 class ChiralDbStub(object):
@@ -24,6 +24,11 @@ class ChiralDbStub(object):
                 request_serializer=chiral__db__pb2.RequestSimilarity.SerializeToString,
                 response_deserializer=chiral__db__pb2.ReplySimilarity.FromString,
                 )
+        self.QuerySubstructure = channel.unary_unary(
+                '/chiraldb.ChiralDb/QuerySubstructure',
+                request_serializer=chiral__db__pb2.RequestSubstructure.SerializeToString,
+                response_deserializer=chiral__db__pb2.ReplySubstructure.FromString,
+                )
 
 
 class ChiralDbServicer(object):
@@ -41,6 +46,12 @@ class ChiralDbServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def QuerySubstructure(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ChiralDbServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -53,6 +64,11 @@ def add_ChiralDbServicer_to_server(servicer, server):
                     servicer.QuerySimilarity,
                     request_deserializer=chiral__db__pb2.RequestSimilarity.FromString,
                     response_serializer=chiral__db__pb2.ReplySimilarity.SerializeToString,
+            ),
+            'QuerySubstructure': grpc.unary_unary_rpc_method_handler(
+                    servicer.QuerySubstructure,
+                    request_deserializer=chiral__db__pb2.RequestSubstructure.FromString,
+                    response_serializer=chiral__db__pb2.ReplySubstructure.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -95,5 +111,22 @@ class ChiralDb(object):
         return grpc.experimental.unary_unary(request, target, '/chiraldb.ChiralDb/QuerySimilarity',
             chiral__db__pb2.RequestSimilarity.SerializeToString,
             chiral__db__pb2.ReplySimilarity.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def QuerySubstructure(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/chiraldb.ChiralDb/QuerySubstructure',
+            chiral__db__pb2.RequestSubstructure.SerializeToString,
+            chiral__db__pb2.ReplySubstructure.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

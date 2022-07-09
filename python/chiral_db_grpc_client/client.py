@@ -20,4 +20,8 @@ class Client:
         mol = chiral_db_pb2.Molecule(smiles=smiles)
         return self.stub.QuerySimilarity(chiral_db_pb2.RequestSimilarity(mol=mol, cutoff=cutoff, doc_name=doc_name)).results
 
+    def query_substructure(self, doc_name: str, smarts: str) -> typing.Dict[str, chiral_db_pb2.MatchSubstructure]:
+        frag = chiral_db_pb2.Fragment(smarts=smarts)
+        return self.stub.QuerySubstructure(chiral_db_pb2.RequestSubstructure(doc_name=doc_name, frag=frag)).results
+
     

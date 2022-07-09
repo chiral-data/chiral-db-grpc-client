@@ -14,16 +14,21 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0f\x63hiral_db.proto\x12\x08\x63hiraldb\"\x14\n\x12RequestDescription\" \n\x10ReplyDescription\x12\x0c\n\x04\x64\x65sc\x18\x01 \x01(\t\"\x1a\n\x08Molecule\x12\x0e\n\x06smiles\x18\x01 \x01(\t\"V\n\x11RequestSimilarity\x12\x1f\n\x03mol\x18\x01 \x01(\x0b\x32\x12.chiraldb.Molecule\x12\x0e\n\x06\x63utoff\x18\x02 \x01(\x02\x12\x10\n\x08\x64oc_name\x18\x03 \x01(\t\"z\n\x0fReplySimilarity\x12\x37\n\x07results\x18\x01 \x03(\x0b\x32&.chiraldb.ReplySimilarity.ResultsEntry\x1a.\n\x0cResultsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x02:\x02\x38\x01\x32\xa5\x01\n\x08\x43hiralDb\x12L\n\x0eGetDescription\x12\x1c.chiraldb.RequestDescription\x1a\x1a.chiraldb.ReplyDescription\"\x00\x12K\n\x0fQuerySimilarity\x12\x1b.chiraldb.RequestSimilarity\x1a\x19.chiraldb.ReplySimilarity\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0f\x63hiral_db.proto\x12\x08\x63hiraldb\"\x14\n\x12RequestDescription\" \n\x10ReplyDescription\x12\x0c\n\x04\x64\x65sc\x18\x01 \x01(\t\"\x1a\n\x08Molecule\x12\x0e\n\x06smiles\x18\x01 \x01(\t\"\x1a\n\x08\x46ragment\x12\x0e\n\x06smarts\x18\x01 \x01(\t\"V\n\x11RequestSimilarity\x12\x10\n\x08\x64oc_name\x18\x01 \x01(\t\x12\x1f\n\x03mol\x18\x02 \x01(\x0b\x32\x12.chiraldb.Molecule\x12\x0e\n\x06\x63utoff\x18\x03 \x01(\x02\"z\n\x0fReplySimilarity\x12\x37\n\x07results\x18\x01 \x03(\x0b\x32&.chiraldb.ReplySimilarity.ResultsEntry\x1a.\n\x0cResultsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x02:\x02\x38\x01\"I\n\x13RequestSubstructure\x12\x10\n\x08\x64oc_name\x18\x01 \x01(\t\x12 \n\x04\x66rag\x18\x02 \x01(\x0b\x32\x12.chiraldb.Fragment\"$\n\x11MatchSubstructure\x12\x0f\n\x07matches\x18\x01 \x03(\x05\"\x9b\x01\n\x11ReplySubstructure\x12\x39\n\x07results\x18\x01 \x03(\x0b\x32(.chiraldb.ReplySubstructure.ResultsEntry\x1aK\n\x0cResultsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12*\n\x05value\x18\x02 \x01(\x0b\x32\x1b.chiraldb.MatchSubstructure:\x02\x38\x01\x32\xf8\x01\n\x08\x43hiralDb\x12L\n\x0eGetDescription\x12\x1c.chiraldb.RequestDescription\x1a\x1a.chiraldb.ReplyDescription\"\x00\x12K\n\x0fQuerySimilarity\x12\x1b.chiraldb.RequestSimilarity\x1a\x19.chiraldb.ReplySimilarity\"\x00\x12Q\n\x11QuerySubstructure\x12\x1d.chiraldb.RequestSubstructure\x1a\x1b.chiraldb.ReplySubstructure\"\x00\x62\x06proto3')
 
 
 
 _REQUESTDESCRIPTION = DESCRIPTOR.message_types_by_name['RequestDescription']
 _REPLYDESCRIPTION = DESCRIPTOR.message_types_by_name['ReplyDescription']
 _MOLECULE = DESCRIPTOR.message_types_by_name['Molecule']
+_FRAGMENT = DESCRIPTOR.message_types_by_name['Fragment']
 _REQUESTSIMILARITY = DESCRIPTOR.message_types_by_name['RequestSimilarity']
 _REPLYSIMILARITY = DESCRIPTOR.message_types_by_name['ReplySimilarity']
 _REPLYSIMILARITY_RESULTSENTRY = _REPLYSIMILARITY.nested_types_by_name['ResultsEntry']
+_REQUESTSUBSTRUCTURE = DESCRIPTOR.message_types_by_name['RequestSubstructure']
+_MATCHSUBSTRUCTURE = DESCRIPTOR.message_types_by_name['MatchSubstructure']
+_REPLYSUBSTRUCTURE = DESCRIPTOR.message_types_by_name['ReplySubstructure']
+_REPLYSUBSTRUCTURE_RESULTSENTRY = _REPLYSUBSTRUCTURE.nested_types_by_name['ResultsEntry']
 RequestDescription = _reflection.GeneratedProtocolMessageType('RequestDescription', (_message.Message,), {
   'DESCRIPTOR' : _REQUESTDESCRIPTION,
   '__module__' : 'chiral_db_pb2'
@@ -44,6 +49,13 @@ Molecule = _reflection.GeneratedProtocolMessageType('Molecule', (_message.Messag
   # @@protoc_insertion_point(class_scope:chiraldb.Molecule)
   })
 _sym_db.RegisterMessage(Molecule)
+
+Fragment = _reflection.GeneratedProtocolMessageType('Fragment', (_message.Message,), {
+  'DESCRIPTOR' : _FRAGMENT,
+  '__module__' : 'chiral_db_pb2'
+  # @@protoc_insertion_point(class_scope:chiraldb.Fragment)
+  })
+_sym_db.RegisterMessage(Fragment)
 
 RequestSimilarity = _reflection.GeneratedProtocolMessageType('RequestSimilarity', (_message.Message,), {
   'DESCRIPTOR' : _REQUESTSIMILARITY,
@@ -67,24 +79,65 @@ ReplySimilarity = _reflection.GeneratedProtocolMessageType('ReplySimilarity', (_
 _sym_db.RegisterMessage(ReplySimilarity)
 _sym_db.RegisterMessage(ReplySimilarity.ResultsEntry)
 
+RequestSubstructure = _reflection.GeneratedProtocolMessageType('RequestSubstructure', (_message.Message,), {
+  'DESCRIPTOR' : _REQUESTSUBSTRUCTURE,
+  '__module__' : 'chiral_db_pb2'
+  # @@protoc_insertion_point(class_scope:chiraldb.RequestSubstructure)
+  })
+_sym_db.RegisterMessage(RequestSubstructure)
+
+MatchSubstructure = _reflection.GeneratedProtocolMessageType('MatchSubstructure', (_message.Message,), {
+  'DESCRIPTOR' : _MATCHSUBSTRUCTURE,
+  '__module__' : 'chiral_db_pb2'
+  # @@protoc_insertion_point(class_scope:chiraldb.MatchSubstructure)
+  })
+_sym_db.RegisterMessage(MatchSubstructure)
+
+ReplySubstructure = _reflection.GeneratedProtocolMessageType('ReplySubstructure', (_message.Message,), {
+
+  'ResultsEntry' : _reflection.GeneratedProtocolMessageType('ResultsEntry', (_message.Message,), {
+    'DESCRIPTOR' : _REPLYSUBSTRUCTURE_RESULTSENTRY,
+    '__module__' : 'chiral_db_pb2'
+    # @@protoc_insertion_point(class_scope:chiraldb.ReplySubstructure.ResultsEntry)
+    })
+  ,
+  'DESCRIPTOR' : _REPLYSUBSTRUCTURE,
+  '__module__' : 'chiral_db_pb2'
+  # @@protoc_insertion_point(class_scope:chiraldb.ReplySubstructure)
+  })
+_sym_db.RegisterMessage(ReplySubstructure)
+_sym_db.RegisterMessage(ReplySubstructure.ResultsEntry)
+
 _CHIRALDB = DESCRIPTOR.services_by_name['ChiralDb']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   _REPLYSIMILARITY_RESULTSENTRY._options = None
   _REPLYSIMILARITY_RESULTSENTRY._serialized_options = b'8\001'
+  _REPLYSUBSTRUCTURE_RESULTSENTRY._options = None
+  _REPLYSUBSTRUCTURE_RESULTSENTRY._serialized_options = b'8\001'
   _REQUESTDESCRIPTION._serialized_start=29
   _REQUESTDESCRIPTION._serialized_end=49
   _REPLYDESCRIPTION._serialized_start=51
   _REPLYDESCRIPTION._serialized_end=83
   _MOLECULE._serialized_start=85
   _MOLECULE._serialized_end=111
-  _REQUESTSIMILARITY._serialized_start=113
-  _REQUESTSIMILARITY._serialized_end=199
-  _REPLYSIMILARITY._serialized_start=201
-  _REPLYSIMILARITY._serialized_end=323
-  _REPLYSIMILARITY_RESULTSENTRY._serialized_start=277
-  _REPLYSIMILARITY_RESULTSENTRY._serialized_end=323
-  _CHIRALDB._serialized_start=326
-  _CHIRALDB._serialized_end=491
+  _FRAGMENT._serialized_start=113
+  _FRAGMENT._serialized_end=139
+  _REQUESTSIMILARITY._serialized_start=141
+  _REQUESTSIMILARITY._serialized_end=227
+  _REPLYSIMILARITY._serialized_start=229
+  _REPLYSIMILARITY._serialized_end=351
+  _REPLYSIMILARITY_RESULTSENTRY._serialized_start=305
+  _REPLYSIMILARITY_RESULTSENTRY._serialized_end=351
+  _REQUESTSUBSTRUCTURE._serialized_start=353
+  _REQUESTSUBSTRUCTURE._serialized_end=426
+  _MATCHSUBSTRUCTURE._serialized_start=428
+  _MATCHSUBSTRUCTURE._serialized_end=464
+  _REPLYSUBSTRUCTURE._serialized_start=467
+  _REPLYSUBSTRUCTURE._serialized_end=622
+  _REPLYSUBSTRUCTURE_RESULTSENTRY._serialized_start=547
+  _REPLYSUBSTRUCTURE_RESULTSENTRY._serialized_end=622
+  _CHIRALDB._serialized_start=625
+  _CHIRALDB._serialized_end=873
 # @@protoc_insertion_point(module_scope)
